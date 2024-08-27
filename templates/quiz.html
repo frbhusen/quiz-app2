@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form action="/submit" method="POST">
+        {% for question in questions %}
+            <div>
+                <p>{{ question['Question Text'] }}</p>
+                <input type="radio" name="{{ question['Question Text'] }}" value="A" id="{{ question['Question Text'] }}_A">
+                <label for="{{ question['Question Text'] }}_A">{{ question['Option A'] }}</label><br>
+                <input type="radio" name="{{ question['Question Text'] }}" value="B" id="{{ question['Question Text'] }}_B">
+                <label for="{{ question['Question Text'] }}_B">{{ question['Option B'] }}</label><br>
+                <input type="radio" name="{{ question['Question Text'] }}" value="C" id="{{ question['Question Text'] }}_C">
+                <label for="{{ question['Question Text'] }}_C">{{ question['Option C'] }}</label><br>
+                <input type="radio" name="{{ question['Question Text'] }}" value="D" id="{{ question['Question Text'] }}_D">
+                <label for="{{ question['Question Text'] }}_D">{{ question['Option D'] }}</label><br>
+            </div>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
