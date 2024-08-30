@@ -1,25 +1,224 @@
 <!DOCTYPE html>
-<html>
+<html dir="rtl">
 <head>
-    <title>Quiz</title>
+    <title>اختبار الكيمياء</title>
+    <style>
+        /* styles.css */
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Dark background for a sleek look */
+            color: #e0e0e0; /* Light text color for readability */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1 {
+            background-color: #1e1e1e; /* Slightly lighter dark background */
+            color: #e0e0e0;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 36px;
+            border-bottom: 4px solid #00796b; /* Elegant green color */
+        }
+
+        form {
+            background: #1e1e1e;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            text-align: right;
+        }
+
+        form div {
+            margin-bottom: 20px;
+        }
+
+        form p {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #4caf50; /* Green color for emphasis */
+        }
+
+        .radio-container {
+            position: relative;
+            display: block;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: #2c2c2c; /* Slightly lighter dark background */
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            margin-bottom: 5px;
+        }
+
+        input[type="radio"] {
+            position: absolute;
+            opacity: 0; /* Hide default radio button */
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked + .radio-label {
+            background-color: #00796b; /* Highlight color for selected option */
+            border-color: #00796b;
+            color: #e0e0e0;
+        }
+
+        .radio-label {
+            display: block;
+            font-size: 16px;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            background-color: #2c2c2c; /* Slightly lighter dark background */
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        button {
+            background-color: #00796b; /* Elegant green color */
+            color: #e0e0e0;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #004d40; /* Darker green for hover effect */
+        }
+
+        input[type="text"] {
+            background-color: #2c2c2c; /* Darker input background */
+            color: #e0e0e0;
+            border: 1px solid #444;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 16px;
+            width: calc(100% - 24px);
+            margin-bottom: 20px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #888; /* Light gray placeholder text */
+        }
+
+        input[type="text"]:focus {
+            border-color: #00796b; /* Green border on focus */
+            outline: none;
+        }
+
+        footer {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 4px solid #00796b;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            max-width: 1000px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            width: 45%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .footer-section p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .footer-section a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #00796b; /* Green color for hover effect */
+        }
+
+        .social-logo {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-logo:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
-    <h1>Quiz</h1>
+    <h1>اختبار الكيمياء</h1>
     <form action="/submit" method="POST">
+        <div>
+            <p>اسمك :</p>
+            <input type="text" id="username" name="username" required placeholder="ادخل اسمك هنا">
+        </div>
         {% for question in questions %}
             <div>
-                <p>{{ question['Question Text'] }}</p>
-                <input type="radio" name="{{ question['Question Text'] }}" value="A" id="{{ question['Question Text'] }}_A">
-                <label for="{{ question['Question Text'] }}_A">{{ question['Option A'] }}</label><br>
-                <input type="radio" name="{{ question['Question Text'] }}" value="B" id="{{ question['Question Text'] }}_B">
-                <label for="{{ question['Question Text'] }}_B">{{ question['Option B'] }}</label><br>
-                <input type="radio" name="{{ question['Question Text'] }}" value="C" id="{{ question['Question Text'] }}_C">
-                <label for="{{ question['Question Text'] }}_C">{{ question['Option C'] }}</label><br>
-                <input type="radio" name="{{ question['Question Text'] }}" value="D" id="{{ question['Question Text'] }}_D">
-                <label for="{{ question['Question Text'] }}_D">{{ question['Option D'] }}</label><br>
+                <p>{{loop.index}} : {{ question['Question Text'] }}</p>
+                <div class="radio-container">
+                    <input type="radio" name="{{ question['Question Text'] }}" value="A" id="{{ question['Question Text'] }}_A" required>
+                    <label class="radio-label" for="{{ question['Question Text'] }}_A">{{ question['Option A'] }}</label>
+                </div>
+                <div class="radio-container">
+                    <input type="radio" name="{{ question['Question Text'] }}" value="B" id="{{ question['Question Text'] }}_B" required>
+                    <label class="radio-label" for="{{ question['Question Text'] }}_B">{{ question['Option B'] }}</label>
+                </div>
+                <div class="radio-container">
+                    <input type="radio" name="{{ question['Question Text'] }}" value="C" id="{{ question['Question Text'] }}_C" required>
+                    <label class="radio-label" for="{{ question['Question Text'] }}_C">{{ question['Option C'] }}</label>
+                </div>
+                <div class="radio-container">
+                    <input type="radio" name="{{ question['Question Text'] }}" value="D" id="{{ question['Question Text'] }}_D" required>
+                    <label class="radio-label" for="{{ question['Question Text'] }}_D">{{ question['Option D'] }}</label>
+                </div>
             </div>
         {% endfor %}
-        <button type="submit">Submit</button>
+        <button type="submit">ارسال</button>
     </form>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>Programmer: Hussein Rajab</p>
+                <p>Phone: +963 950.052.045</p>
+                <a href="https://www.instagram.com/hus.r0/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="social-logo">
+                    hus.r0
+                </a>
+            </div>
+            <div class="footer-section">
+                <p>Supervisor: Dr.Sameh Manlla</p>
+                <p>phone: +963 988.349.910</p>
+                <a href="https://www.facebook.com/sameh.monlla" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="social-logo">
+                    Dr.Sameh Manlla
+                </a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
