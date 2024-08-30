@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Dark background for consistency */
+            color: #e0e0e0; /* Light text color for readability */
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1 {
+            background-color: #1e1e1e; /* Slightly lighter dark background */
+            color: #e0e0e0;
+            padding: 20px 0;
+            margin: 0;
+            font-size: 36px;
+            border-bottom: 4px solid #00796b; /* Elegant green color */
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #f1c40f; /* Yellow color for score */
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .result-container {
+            background: #1e1e1e; /* Consistent dark background */
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        }
+
+        .result-container h3 {
+            color: #f1c40f; /* Yellow color for heading */
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .result-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: #2c2c2c; /* Slightly lighter dark background */
+        }
+
+        .result-item p {
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .result-item .user-answer {
+            color: #e74c3c; /* Red color for incorrect answers */
+            font-weight: bold;
+        }
+
+        .result-item .correct-answer {
+            color: #00796b; /* Green color for correct answers */
+            font-weight: bold;
+        }
+
+        .result-item .choices {
+            color: #ecf0f1; /* Light gray for options */
+            font-weight: normal;
+        }
+
+        button {
+            background-color: #00796b; /* Elegant green color */
+            color: #e0e0e0;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin: 20px auto;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #004d40; /* Darker green for hover effect */
+        }
+
+        footer {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            padding: 20px 0;
+            text-align: center;
+            border-top: 4px solid #00796b;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            max-width: 1200px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            width: 45%;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .footer-section p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .footer-section a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: #00796b; /* Green color for hover effect */
+        }
+
+        .social-logo {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+            margin-right: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .social-logo:hover {
+            transform: scale(1.1);
+        }
+    </style>
+
+</head>
+<body>
+    <h1>نتائج الاختبار</h1>
+    <h2>{{ username }}, نتيجتك هي {{ score }} / 10</h2>
+
+    {% if incorrect_questions %}
+        <div class="result-container">
+            <h3>الاجابات الخاطئة:</h3>
+            {% for incorrect in incorrect_questions %}
+                <div class="result-item">
+                    <p>{{ loop.index }} : {{ incorrect['question_text'] }}</p>
+                    <p class="user-answer">اجابتك: {{ incorrect['user_answer'] }}</p>
+                    <p class="correct-answer">الاجابة الصحيحة: {{ incorrect['correct_answer'] }}</p>
+                    <p class="choices">الخيارات:
+                        <br>A : {{ incorrect['options']['A'] }}
+                        <br>B : {{ incorrect['options']['B'] }}
+                        <br>C : {{ incorrect['options']['C'] }}
+                        <br>D : {{ incorrect['options']['D'] }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <button onclick="window.location.href='/'">إعادة الاختبار</button>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <p>Programmer: Hussein Rajab</p>
+                <p>Phone: +963 950.052.045</p>
+                <a href="https://www.instagram.com/hus.r0/" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="social-logo">
+                    hus.r0
+                </a>
+            </div>
+            <div class="footer-section">
+                <p>Supervisor: Dr. Sameh Manlla</p>
+                <p>Phone: +963 988.349.910</p>
+                <a href="https://www.facebook.com/sameh.monlla" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" class="social-logo">
+                    Dr. Sameh Manlla
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Redirect to the quiz page if the user is refreshing the page
+        if (performance.navigation.type === 1) {
+            window.location.href = '/'; // Replace '/quiz' with your actual quiz page URL
+        }
+    </script>
+
+
+</body>
+</html>
